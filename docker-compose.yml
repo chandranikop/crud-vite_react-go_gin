@@ -1,19 +1,21 @@
-version: "3.8"
-
 services:
 
   backend:
     image: chandraniko/crud-backend:v1
     container_name: crud-backend
     ports:
-      - "8080:8080"
+      - "${APP_PORT}:8080"
+    environment:
+      - GIN_MODE=${GIN_MODE}
+      - APP_NAME=${APP_NAME}
+      - APP_VERSION=${APP_VERSION}
     restart: unless-stopped
 
   frontend:
     image: chandraniko/crud-frontend:v1
     container_name: crud-frontend
     ports:
-      - "3000:80"
+      - "${FRONTEND_PORT}:80"
     depends_on:
       - backend
     restart: unless-stopped
